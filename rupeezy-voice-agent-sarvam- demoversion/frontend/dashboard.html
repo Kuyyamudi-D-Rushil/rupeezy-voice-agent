@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rupeezy RM Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dashboard-shell">
+        <header class="dashboard-header">
+            <div>
+                <h1>RM Manager Dashboard</h1>
+                <p>Lead qualification results from Rupeezy AI conversations</p>
+            </div>
+            <div class="header-actions">
+                <a href="index.html">Voice Agent</a>
+                <button id="refresh-btn" type="button">Refresh</button>
+                <button id="seed-btn" type="button">Add Demo Lead</button>
+            </div>
+        </header>
+
+        <section id="error-box" class="error-box hidden"></section>
+
+        <section class="stats-grid" aria-label="Lead totals">
+            <div class="stat-card">
+                <span>Total Leads</span>
+                <strong id="total-count">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Hot</span>
+                <strong id="hot-count">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Warm</span>
+                <strong id="warm-count">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Cold</span>
+                <strong id="cold-count">0</strong>
+            </div>
+        </section>
+
+        <main class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lead</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                        <th>Main Objection</th>
+                        <th>Summary</th>
+                        <th>Next Action</th>
+                        <th>Handoff</th>
+                        <th>Transcript</th>
+                        <th>Follow-up</th>
+                    </tr>
+                </thead>
+                <tbody id="leads-body">
+                    <tr>
+                        <td colspan="9" class="empty-cell">Loading leads...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

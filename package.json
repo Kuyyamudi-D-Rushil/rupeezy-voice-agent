@@ -1,0 +1,12 @@
+{
+  "name": "rupeezy-voice-agent-sarvam-demo-wrapper",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Convenience wrapper for the nested Rupeezy voice agent demo folder.",
+  "scripts": {
+    "postinstall": "npm --prefix \"rupeezy-voice-agent-sarvam- demoversion\" install",
+    "dev": "npm --prefix \"rupeezy-voice-agent-sarvam- demoversion\" run dev",
+    "dev:frontend": "npm --prefix \"rupeezy-voice-agent-sarvam- demoversion\" run dev:frontend",
+    "dev:backend": "npm --prefix \"rupeezy-voice-agent-sarvam- demoversion\" run dev:backend"
+  }
+}

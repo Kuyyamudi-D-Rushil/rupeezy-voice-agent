@@ -1,0 +1,18 @@
+{
+  "name": "rupeezy-voice-agent-sarvam-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local Rupeezy voice agent demo with a Vite-served frontend and FastAPI backend.",
+  "scripts": {
+    "postinstall": "python -m pip install -r backend/requirements.txt",
+    "dev": "concurrently -n frontend,backend -c cyan,green \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "node scripts/print-url.js Frontend http://localhost:5173 && vite frontend --host 127.0.0.1 --port 5173",
+    "dev:backend": "node scripts/print-url.js Backend http://127.0.0.1:8000 && python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000 --app-dir backend",
+    "test:speakers": "python backend/test_sarvam_speakers.py",
+    "test:multilingual-tts": "python backend/test_multilingual_tts.py"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "vite": "^5.4.11"
+  }
+}

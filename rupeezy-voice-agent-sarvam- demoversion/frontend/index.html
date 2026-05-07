@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rupeezy Voice Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo-container">
+                <h1 class="logo">Rupeezy <span class="accent">Agent</span></h1>
+                <p class="tagline">Your AI Partner Agent</p>
+            </div>
+            <div class="market-ticker">
+                <div class="ticker-item">NIFTY 50: <span class="up">24,832 ▲ 0.43%</span></div>
+                <div class="ticker-divider">|</div>
+                <div class="ticker-item">SENSEX: <span class="up">81,524 ▲ 0.38%</span></div>
+            </div>
+            <div class="agent-tools">
+                <label class="language-control" for="language-select">
+                    <span>Speech language</span>
+                    <select id="language-select">
+                        <option value="auto" data-recognition-lang="en-IN" selected>Auto / Hinglish</option>
+                        <option value="hinglish" data-recognition-lang="en-IN">Hinglish</option>
+                        <option value="english" data-recognition-lang="en-IN">English</option>
+                        <option value="hindi" data-recognition-lang="hi-IN">Hindi</option>
+                        <option value="kannada" data-recognition-lang="kn-IN">Kannada</option>
+                        <option value="tamil" data-recognition-lang="ta-IN">Tamil</option>
+                        <option value="telugu" data-recognition-lang="te-IN">Telugu</option>
+                    </select>
+                </label>
+                <button id="new-lead-btn" class="new-lead-btn" type="button">New Lead / Reset Session</button>
+            </div>
+        </header>
+
+        <main class="chat-section">
+            <div id="chat-window" class="chat-window">
+                <div class="message bot-message">
+                    <div class="avatar">R</div>
+                    <div class="message-content">
+                        <p>Namaste, main Rupeezy AI Agent bol raha hoon. Aapka naam kya hai aur aap professionally kya karte hain?</p>
+                        <span class="timestamp">Just now</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="controls-section">
+            <div class="mic-container">
+                <button id="mic-btn" class="mic-btn">
+                    <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                    <div class="visualizer"></div>
+                </button>
+                <p id="status-text" class="status-text">Tap to speak</p>
+            </div>
+            <form id="text-form" class="text-form">
+                <input id="text-input" class="text-input" type="text" autocomplete="off" placeholder="Type a message">
+                <button id="send-btn" class="send-btn" type="submit">Send</button>
+            </form>
+        </footer>
+
+        <div id="error-toast" class="error-toast"></div>
+        <div id="mic-denied-banner" class="mic-denied-banner hidden">
+            Microphone access denied. Please allow mic in browser settings.
+        </div>
+        <div id="protocol-warning" class="protocol-warning hidden">
+            Please run the app with npm run dev and open http://localhost:5173
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
