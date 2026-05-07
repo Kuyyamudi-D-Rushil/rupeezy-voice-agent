@@ -5,12 +5,19 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(BASE_DIR / ".env")
 load_dotenv(BASE_DIR.parent / ".env", override=False)
+PROJECT_DIR = BASE_DIR.parent
+FRONTEND_DIR = PROJECT_DIR / "frontend"
 
 GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
 SARVAM_API_KEY: str = os.getenv("SARVAM_API_KEY", "")
 AGENT_NAME: str = os.getenv("AGENT_NAME", "Rupeezy AI Agent") or "Rupeezy AI Agent"
 SESSION_TTL_MINUTES: int = int(os.getenv("SESSION_TTL_MINUTES", "30"))
-FRONTEND_ORIGIN: str = os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")
+FRONTEND_ORIGINS_RAW: str = os.getenv("FRONTEND_ORIGINS", os.getenv("FRONTEND_ORIGIN", ""))
+FRONTEND_ORIGINS: list[str] = [
+    origin.strip().rstrip("/")
+    for origin in FRONTEND_ORIGINS_RAW.split(",")
+    if origin.strip()
+]
 API_HOST: str = os.getenv("API_HOST", "0.0.0.0")
 API_PORT: int = int(os.getenv("API_PORT", "8000"))
 

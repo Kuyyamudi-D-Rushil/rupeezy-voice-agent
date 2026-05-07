@@ -15,7 +15,7 @@ let micPermissionGranted = false;
 const DEFAULT_GREETING = 'Namaste, main Rupeezy AI Agent bol raha hoon. Aapka naam kya hai aur aap professionally kya karte hain?';
 let sessionId = sessionStorage.getItem('rupeezy_session_id') || `lead_${Date.now()}`;
 sessionStorage.setItem('rupeezy_session_id', sessionId);
-const API_BASE_URL = window.RUPEEZY_API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = (window.RUPEEZY_API_BASE_URL || '').replace(/\/$/, '');
 
 function selectedRecognitionLang() {
     return languageSelect.selectedOptions[0]?.dataset.recognitionLang || 'en-IN';
@@ -39,13 +39,12 @@ const languageSelect = document.getElementById('language-select');
 const newLeadBtn = document.getElementById('new-lead-btn');
 
 function isSupportedFrontendOrigin() {
-    const supportedHosts = new Set(['localhost:5173', '127.0.0.1:5173']);
-    return window.location.protocol === 'http:' && supportedHosts.has(window.location.host);
+    return window.isSecureContext;
 }
 
 if (!isSupportedFrontendOrigin()) {
     protocolWarning.classList.remove('hidden');
-    showToast('Please use http://localhost:5173');
+    showToast('Please open the app from a secure origin.');
 }
 
 // Audio Context for fallback TTS
@@ -205,7 +204,7 @@ function shouldIgnoreTranscript(transcript) {
 async function ensureMicPermission() {
     if (micPermissionGranted) return true;
     if (!navigator.mediaDevices?.getUserMedia) {
-        showToast('Microphone permission API is unavailable. Use Chrome or Edge on localhost.');
+        showToast('Microphone permission API is unavailable. Use Chrome or Edge on a secure origin.');
         return false;
     }
     try {
@@ -230,7 +229,7 @@ async function startContinuousMode() {
     }
     if (!isSupportedFrontendOrigin()) {
         protocolWarning.classList.remove('hidden');
-        showToast('Please use http://localhost:5173');
+        showToast('Please open the app from a secure origin.');
         return;
     }
     const ok = await ensureMicPermission();

@@ -1,4 +1,4 @@
-const API_BASE_URL = window.RUPEEZY_API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = (window.RUPEEZY_API_BASE_URL || '').replace(/\/$/, '');
 
 const leadsBody = document.getElementById('leads-body');
 const errorBox = document.getElementById('error-box');

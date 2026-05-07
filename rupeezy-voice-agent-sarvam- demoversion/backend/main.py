@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from routes.chat import router as chat_router
 from routes.leads import router as leads_router
-from config import API_HOST, API_PORT, FRONTEND_ORIGIN
+from config import API_HOST, API_PORT, FRONTEND_DIR, FRONTEND_ORIGINS
 
 app = FastAPI(
     title="Rupeezy Voice Agent API",
@@ -10,25 +11,15 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# CORS — open for demo purposes
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        FRONTEND_ORIGIN,
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "null",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+if FRONTEND_ORIGINS:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=FRONTEND_ORIGINS,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
-# Include routers
 app.include_router(chat_router)
 app.include_router(leads_router)
 
@@ -38,6 +29,11 @@ async def health_check():
     return {"status": "ok"}
 
 
+if FRONTEND_DIR.exists():
+    app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
